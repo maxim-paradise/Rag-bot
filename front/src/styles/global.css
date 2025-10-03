@@ -1,9 +1,291 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 @layer base {
   :root {
-    --radius: 0.5rem;
+    /* Border Radius */
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
+    
+    /* Light Theme Colors */
+    --background: 0.99 0 0;
+    --foreground: 0.15 0.005 285.823;
+  
+    /* Card */
+    --card: 1 0 0;
+    --card-foreground: 0.15 0.005 285.823;
+    
+    /* Popover */
+    --popover: 1 0 0;
+    --popover-foreground: 0.15 0.005 285.823;
+    
+    /* Primary (Blue-Purple gradient inspired) */
+    --primary: 0.55 0.22 260;
+    --primary-foreground: 0.99 0.01 260;
+    
+    /* Secondary */
+    --secondary: 0.96 0.002 286;
+    --secondary-foreground: 0.22 0.006 286;
+    
+    /* Muted */
+    --muted: 0.96 0.002 286;
+    --muted-foreground: 0.50 0.015 286;
+    
+    /* Accent */
+    --accent: 0.96 0.002 286;
+    --accent-foreground: 0.22 0.006 286;
+    
+    /* Destructive */
+    --destructive: 0.58 0.24 27;
+    --destructive-foreground: 0.99 0 0;
+    
+    /* Border & Input */
+    --border: 0.90 0.004 286;
+    --input: 0.90 0.004 286;
+    --ring: 0.55 0.22 260;
+    
+    /* Sidebar - Light theme (clean white) */
+    --sidebar-background: 0.98 0 0;
+    --sidebar-foreground: 0.15 0.005 286;
+    --sidebar-primary: 0.55 0.22 260;
+    --sidebar-primary-foreground: 0.99 0.01 260;
+    --sidebar-accent: 0.94 0.002 286;
+    --sidebar-accent-foreground: 0.22 0.006 286;
+    --sidebar-border: 0.88 0.004 286;
+    --sidebar-ring: 0.55 0.22 260;
   }
-} 
+
+  .dark {
+    /* Dark Theme Colors - ChatGPT inspired */
+    --background: 0.15 0.005 286;
+    --foreground: 0.95 0.002 286;
+    
+    /* Card */
+    --card: 0.18 0.006 286;
+    --card-foreground: 0.95 0.002 286;
+    
+    /* Popover */
+    --popover: 0.18 0.006 286;
+    --popover-foreground: 0.95 0.002 286;
+    
+    /* Primary */
+    --primary: 0.60 0.22 265;
+    --primary-foreground: 0.20 0.10 265;
+    
+    /* Secondary */
+    --secondary: 0.25 0.006 286;
+    --secondary-foreground: 0.95 0.002 286;
+    
+    /* Muted */
+    --muted: 0.25 0.006 286;
+    --muted-foreground: 0.65 0.015 286;
+    
+    /* Accent */
+    --accent: 0.25 0.006 286;
+    --accent-foreground: 0.95 0.002 286;
+    
+    /* Destructive */
+    --destructive: 0.70 0.19 22;
+    --destructive-foreground: 0.99 0 0;
+    
+    /* Border & Input */
+    --border: 0.3 0.006 286;
+    --input: 0.35 0.006 286;
+    --ring: 0.55 0.24 264;
+    
+    /* Sidebar - Dark theme (very dark, almost black like ChatGPT) */
+    --sidebar-background: 0.12 0.005 286;
+    --sidebar-foreground: 0.90 0.002 286;
+    --sidebar-primary: 0.60 0.22 265;
+    --sidebar-primary-foreground: 0.20 0.10 265;
+    --sidebar-accent: 0.20 0.006 286;
+    --sidebar-accent-foreground: 0.90 0.002 286;
+    --sidebar-border: 0.25 0.006 286;
+    --sidebar-ring: 0.55 0.24 264;
+  }
+}
+
+@layer base {
+  * {
+    border-color: oklch(var(--border));
+  }
+
+  body {
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  /* Utility classes */
+  .bg-background {
+    background-color: oklch(var(--background));
+  }
+
+  .bg-foreground {
+    background-color: oklch(var(--foreground));
+  }
+
+  .bg-card {
+    background-color: oklch(var(--card));
+  }
+
+  .bg-primary {
+    background-color: oklch(var(--primary));
+  }
+
+  .bg-secondary {
+    background-color: oklch(var(--secondary));
+  }
+
+  .bg-muted {
+    background-color: oklch(var(--muted));
+  }
+
+  .text-foreground {
+    color: oklch(var(--foreground));
+  }
+
+  .text-muted-foreground {
+    color: oklch(var(--muted-foreground));
+  }
+
+  .text-primary {
+    color: oklch(var(--primary));
+  }
+
+  .border-border {
+    border-color: oklch(var(--border));
+  }
+}
+
+@layer components {
+  /* Sidebar specific */
+  .sidebar {
+    background-color: oklch(var(--sidebar-background));
+    color: oklch(var(--sidebar-foreground));
+    border-color: oklch(var(--sidebar-border));
+  }
+
+  .sidebar-item {
+    transition: background-color 0.15s ease;
+  }
+
+  .sidebar-item:hover {
+    background-color: oklch(var(--sidebar-accent));
+  }
+
+  .sidebar-item.active {
+    background-color: oklch(var(--sidebar-accent));
+  }
+
+  /* Message styles */
+  .message-ai {
+    background-color: oklch(var(--muted));
+  }
+
+  .message-user {
+    background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+  }
+
+  .avatar-ai {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  }
+
+  .avatar-user {
+    background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+  }
+
+  /* Button styles */
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px -5px rgb(99 102 241 / 0.4);
+  }
+
+  /* Input styles */
+  .input-field {
+    background-color: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    color: oklch(var(--foreground));
+    border-radius: var(--radius-lg);
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: oklch(var(--ring));
+    box-shadow: 0 0 0 3px rgb(99 102 241 / 0.1);
+  }
+
+  .input-field::placeholder {
+    color: oklch(var(--muted-foreground));
+  }
+}
+
+@layer base {
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--muted));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--muted-foreground) / 0.5);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: oklch(0.3 0.006 286);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.4 0.006 286);
+  }
+}
+
+@layer utilities {
+  /* Animation utilities */
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.2s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+}

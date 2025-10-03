@@ -1,154 +1,156 @@
-# Vue Shadcn UIKit Starter
+# AI Chatbot RAG - Frontend
 
-A modern approach to building websites using Vue 3 + Shadcn UI in a BunJS environment. This starter kit provides a robust foundation for creating landing pages, multi-page applications, and reusable UI components with a utility-first CSS approach.
+Фронтенд приложение для AI чатбота с поддержкой RAG (Retrieval-Augmented Generation), построенное на SvelteKit и Tailwind CSS.
 
-## 📦 NEW! Section Collector
+## 🚀 Технологии
 
-This version adds an experimental feature to add sections to the builder. 
-Click on the drop down menu in the top right corner. Click `Get UI Blocks` and add the blocks you like to the site-wide collection. Then click `Go to BuildY` to go into the builder and see the blocks ready to build pages. 
-If you want to continue browsing the site without the collector functionality, just click: `Default State`.
+- **SvelteKit** - Full-stack фреймворк для Svelte
+- **Tailwind CSS v4** - Utility-first CSS фреймворк
+- **TypeScript** - Типизация
+- **Vite** - Сборщик и dev сервер
 
-## Page speed Google Lighthouse score 100%
-
-[Google Lighthouse score](https://pagespeed.web.dev/analysis/https-vue-uikit-shadcn-vercel-app/b1ozhxmmsz?form_factor=desktop)
-
-## 🚀 Getting Started
-
-### Prerequisites
-- [Bun](https://bun.sh/) >= 1.0.0
-- Node.js >= 18.0.0
+## 📦 Установка
 
 ```bash
-# Install Bun
-curl -fsSL https://bun.sh/install | bash
+# Убедитесь, что используете Node.js 20.19+ или 22.12+
+nvm use 22.12.0
 
-# Clone and Setup
-git clone https://github.com/alexy-os/vue-shadcn-starter
-cd vue-shadcn-starter
-bun install
-bun dev
+# Установка зависимостей
+npm install
 ```
 
-## 🎨 Component Development
+## 🛠️ Разработка
 
-### CVA (class-variance-authority) Approach
+```bash
+# Запуск dev сервера
+npm run dev
 
-We use CVA for type-safe component variants. Here's how to create a new component:
-
-```typescript
-// components/ui/button/button.ts
-import { cva } from 'class-variance-authority'
-
-export const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground'
-      },
-      size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8'
-      }
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default'
-    }
-  }
-)
+# Запуск с автоматическим открытием браузера
+npm run dev -- --open
 ```
 
-### Component Implementation
+Приложение будет доступно по адресу: http://localhost:5173
 
-```vue
-<!-- components/ui/button/button.vue -->
-<script setup lang="ts">
-import { computed } from 'vue'
-import { buttonVariants } from './button'
-import type { ButtonVariants } from './button.types'
+## 🏗️ Сборка
 
-const props = defineProps<ButtonVariants>()
+```bash
+# Сборка продакшн версии
+npm run build
 
-const classes = computed(() => 
-  buttonVariants({ variant: props.variant, size: props.size })
-)
-</script>
- 
-<template>
-  <button :class="classes">
-    <slot />
-  </button>
-</template>
+# Предпросмотр продакшн сборки
+npm run preview
 ```
 
-## 🛠️ Tech Stack
+## ⚙️ Конфигурация
 
-- [Vue 3.5+](https://vuejs.org/)
-- [Vite](https://vitejs.dev/)
-- [Bun.js](https://bun.sh/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [shadcn-vue](https://github.com/unovue/shadcn-vue)
-- [Radix Vue](https://www.radix-vue.com/)
-- [class-variance-authority (CVA)](https://github.com/joe-bell/class-variance-authority)
+### Переменные окружения
 
-## 📦 Project Structure
+Создайте файл `.env` на основе `.env.example`:
+
+```env
+BACKEND_URL=http://localhost:8000
+PUBLIC_APP_NAME=AI Chatbot RAG
+PUBLIC_APP_VERSION=1.0.0
+```
+
+### Подключение к бэкенду
+
+По умолчанию фронтенд ожидает, что бэкенд запущен на `http://localhost:8000`.
+
+Для изменения адреса бэкенда:
+1. Измените переменную `BACKEND_URL` в файле `.env`
+2. Или измените `BACKEND_URL` в файле `src/routes/api/chat/+server.ts`
+
+## 📁 Структура проекта
 
 ```
 src/
-├── components/
-│   └── ui/          # Shadcn components
-│       └── button/  # Example component structure
-│           ├── button.ts        # CVA variants
-│           ├── button.vue       # Component implementation
-│           └── button.types.ts  # TypeScript interfaces
 ├── lib/
-│   └── utils.ts     # Utility functions
-├── styles/
-│   └── globals.css  # Global styles
-└── App.vue          # Main application
+│   ├── components/
+│   │   ├── ChatContainer.svelte  # Основной контейнер чата
+│   │   ├── ChatMessage.svelte    # Компонент сообщения
+│   │   └── ChatInput.svelte      # Поле ввода сообщений
+│   └── types.ts                  # TypeScript типы
+├── routes/
+│   ├── api/
+│   │   └── chat/
+│   │       └── +server.ts        # API endpoint для чата
+│   ├── +layout.svelte            # Главный layout
+│   └── +page.svelte              # Главная страница
+└── app.css                       # Глобальные стили (Tailwind)
 ```
 
-## 🔧 Development Guidelines
+## 🎨 Особенности UI
 
-1. **Component Creation**:
-   - Place new components in `src/components/ui/`
-   - Use CVA for variant management
-   - Create separate files for types and variants
-   - Implement proper TypeScript interfaces
+- ✨ Современный градиентный дизайн
+- 🌓 Поддержка темной темы
+- 📱 Адаптивная верстка
+- ⌨️ Удобные горячие клавиши (Enter для отправки, Shift+Enter для новой строки)
+- 🔄 Анимации загрузки
+- 📄 Отображение источников информации (RAG)
 
-2. **Styling**:
-   - Follow utility-first approach with Tailwind CSS
-   - Use CVA for managing component variants
-   - Maintain dark mode compatibility
+## 🔧 Интеграция с бэкендом
 
-3. **Type Safety**:
-   - Ensure all components are properly typed
-   - Use TypeScript strict mode
-   - Leverage Vue 3.5+ type inference
+API endpoint ожидает следующий формат запроса:
 
-## 🎯 Use Cases
+```typescript
+POST /api/chat
+{
+  "message": "Ваш вопрос"
+}
+```
 
-- Landing Pages
-- Marketing Websites
-- Multi-page Applications
-- Component Libraries
-- Design Systems
+Ожидаемый формат ответа:
 
-## 🤝 Contributing
+```typescript
+{
+  "message": "Ответ ассистента",
+  "sources": ["источник1", "источник2"]  // опционально
+}
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 📝 Дальнейшая настройка
 
-## 📝 License
+### Добавление новых компонентов
 
-MIT License - see the [MIT](LICENSE) file for details.
+```bash
+# Компоненты размещаются в src/lib/components/
+touch src/lib/components/YourComponent.svelte
+```
 
----
+### Добавление новых страниц
 
-**Note**: This is an early preview of a larger ecosystem being developed for creating flexible, reusable UI components with shadcn-vue. Stay tuned for more blocks and components!
+```bash
+# Страницы размещаются в src/routes/
+mkdir src/routes/your-page
+touch src/routes/your-page/+page.svelte
+```
 
-For more information, visit [shadcn-vue documentation](https://www.shadcn-vue.com/).
+### Настройка Tailwind CSS
+
+Tailwind v4 использует новый подход с `@import 'tailwindcss'` в `app.css`.
+
+Для кастомизации добавьте CSS переменные или используйте стандартные утилиты Tailwind.
+
+## 🐛 Отладка
+
+```bash
+# Проверка типов
+npm run check
+
+# Проверка типов в режиме watch
+npm run check:watch
+```
+
+## 📚 Дополнительные ресурсы
+
+- [SvelteKit Documentation](https://svelte.dev/docs/kit)
+- [Svelte Documentation](https://svelte.dev/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+
+## 🤝 Разработка
+
+Проект использует:
+- **Svelte 5** с новым синтаксисом runes (`$state`, `$props`, `$effect`)
+- **TypeScript** для типобезопасности
+- **Tailwind CSS v4** для стилизации
